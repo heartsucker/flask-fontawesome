@@ -1,5 +1,5 @@
 # Flask-FontAwesome
-[![PyPI Version](https://badge.fury.io/py/flask-fontawesome.png)](https://pypi.python.org/pypi/flask-fontawesome) [![CI](https://api.travis-ci.org/heartsucker/flask-fontawesome.svg?branch=develop)](https://api.travis-ci.org/heartsucker/flask-fontawesome.svg?branch=develop) [![Documentation Status](https://readthedocs.org/projects/flask-fontawesome/badge/?version=latest)](https://flask-fontawesome.readthedocs.io/en/latest/?badge=latest)
+[![PyPI Version](https://badge.fury.io/py/Flask-FontAwesome.svg)](https://pypi.python.org/pypi/Flask-FontAwesome) [![CI](https://api.travis-ci.org/heartsucker/flask-fontawesome.svg?branch=develop)](https://api.travis-ci.org/heartsucker/flask-fontawesome.svg?branch=develop) [![Documentation Status](https://readthedocs.org/projects/flask-fontawesome/badge/?version=latest)](https://flask-fontawesome.readthedocs.io/en/latest/?badge=latest)
 
 Flask extension for [FontAwesome](https://fontawesome.com/).
 
