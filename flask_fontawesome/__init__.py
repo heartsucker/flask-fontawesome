@@ -3,7 +3,7 @@
 from flask import Flask, Blueprint, url_for, Markup, current_app
 
 FONTAWESOME_VERSION = '5.3.1'
-__version__ = '0.1.1'
+__version__ = '0.1.2'
 
 
 class Cdn(object):

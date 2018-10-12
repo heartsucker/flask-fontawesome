@@ -21,6 +21,7 @@ setuptools.setup(
     long_description_content_type='text/markdown',
     package_dir={'flask_fontawesome': 'flask_fontawesome'},
     packages=['flask_fontawesome'],
+    include_package_data=True,
     platforms='any',
     install_requires=[
         'Flask',
