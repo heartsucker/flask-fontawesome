@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import flask_fontawesome
+import re
 import setuptools
 
 from os import path
@@ -10,9 +10,14 @@ base_dir = path.abspath(path.dirname(__file__))
 with open(path.join(base_dir, 'README.md')) as f:
     long_description = f.read()
 
+with open(path.join(base_dir, 'flask_fontawesome', '__init__.py')) as f:
+    version = re.search("^__version__ = '(?P<version>.*)'$",
+                        f.read(),
+                        re.MULTILINE).group('version')
+
 setuptools.setup(
     name='Flask-FontAwesome',
-    version=flask_fontawesome.__version__,
+    version=version,
     author='heartsucker',
     author_email='heartsucker@autistici.org',
     url='https://github.com/heartsucker/flask-fontawesome',
