@@ -106,7 +106,7 @@ class UseFontAwesomeComCdn(Cdn):
 
 class FontAwesome(object):
 
-    def __init__(self, app: Flask=None) -> None:
+    def __init__(self, app: Flask = None) -> None:
         if app is not None:
             self.init_app(app)
 
@@ -121,7 +121,6 @@ class FontAwesome(object):
             'fontawesome',
             __name__,
             static_folder='static')
-            #static_url_path=app.static_url_path + '/fontawesome')
 
         static = StaticCdn()
         use_fa = UseFontAwesomeComCdn()
