@@ -120,8 +120,8 @@ class FontAwesome(object):
         blueprint = Blueprint(
             'fontawesome',
             __name__,
-            static_folder='static',
-            static_url_path=app.static_url_path + '/fontawesome')
+            static_folder='static')
+            #static_url_path=app.static_url_path + '/fontawesome')
 
         static = StaticCdn()
         use_fa = UseFontAwesomeComCdn()
@@ -133,4 +133,4 @@ class FontAwesome(object):
                 return use_fa.resources_html()
 
         app.jinja_env.globals['fontawesome_html'] = fontawesome_html
-        app.register_blueprint(blueprint)
+        app.register_blueprint(blueprint, url_prefix='/fontawesome')
