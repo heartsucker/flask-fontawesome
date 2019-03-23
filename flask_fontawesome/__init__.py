@@ -106,7 +106,7 @@ class UseFontAwesomeComCdn(Cdn):
 
 class FontAwesome(object):
 
-    def __init__(self, app: Flask=None) -> None:
+    def __init__(self, app: Flask = None) -> None:
         if app is not None:
             self.init_app(app)
 
