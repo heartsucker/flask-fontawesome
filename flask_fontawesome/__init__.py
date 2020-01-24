@@ -1,36 +1,99 @@
 # -*- coding: utf-8 -*-
+'''
+flask_fontawesome
+-----------------
+
+This moudle provides helpers to quickly add FontAwesome resources to your Flask app.
+
+:license: MIT / Apache 2.0 (seen LICENSE-MIT and LICENSE-APACHE for details)
+'''
 
 from flask import Flask, Blueprint, url_for, Markup, current_app
 
 FONTAWESOME_VERSION = '5.3.1'
-__version__ = '0.1.2'
+__version__ = '0.1.3'
+
+
+def fontawesome_html() -> Markup:
+    '''
+    Returns :class:`~flask.Markup` of all the requested FontAwesome resources. This can be embedded
+    in your Jinja templates to add FontAwesome to your site.
+    '''
+    if current_app.config['FONTAWESOME_SERVE_LOCAL']:
+        return current_app.extensions['fontawesome']._static.resources_html()
+    else:
+        return current_app.extensions['fontawesome']._use_fa.resources_html()
+
+
+def fontawesome_js() -> Markup:
+    '''
+    Returns :class:`~flask.Markup` of the JS FontAwesome resources.
+    '''
+    if current_app.config['FONTAWESOME_SERVE_LOCAL']:
+        return current_app.extensions['fontawesome']._static.js_html()
+    else:
+        return current_app.extensions['fontawesome']._use_fa.js_html()
+
+
+def fontawesome_css() -> Markup:
+    '''
+    Returns :class`~flask.Markup` of the CSS FontAwesome resources.
+    '''
+    if current_app.config['FONTAWESOME_SERVE_LOCAL']:
+        return current_app.extensions['fontawesome']._static.css_html()
+    else:
+        return current_app.extensions['fontawesome']._use_fa.css_html()
 
 
 class Cdn(object):
 
-    def _check_type(self, typ: str) -> None:
+    def resources_html(self) -> Markup:
+        return self.css_html() + self.js_html()
+
+    def css_html(self) -> Markup:
+        raise NotImplementedError()
+
+    def js_html(self) -> Markup:
+        raise NotImplementedError()
+
+    def _check_type(self) -> None:
+        typ = current_app.config['FONTAWESOME_TYPE']
         if typ not in ['webfont/css', 'svg/js']:
             raise ValueError('Illegal parameter for FONTAWESOME_TYPE: {}'.format(typ))
 
 
 class StaticCdn(Cdn):
 
-    def resources_html(self) -> Markup:
-        typ = current_app.config['FONTAWESOME_TYPE']
-        self._check_type(typ)
-        func = self.__css if typ == 'webfont/css' else self.__js
-        use_min = current_app.config['FONTAWESOME_USE_MINIFIED']
+    def css_html(self) -> Markup:
+        self._check_type()
+        if current_app.config['FONTAWESOME_TYPE'] == 'webfont/css':
+            return self.__gen_html(self.__css)
+        else:
+            return Markup()
 
-        urls = []
+    def js_html(self) -> Markup:
+        self._check_type()
+        if current_app.config['FONTAWESOME_TYPE'] == 'svg/js':
+            return self.__gen_html(self.__js)
+        else:
+            return Markup()
+
+    def __gen_html(self, func) -> Markup:
+        use_min = current_app.config['FONTAWESOME_USE_MINIFIED']
+        html = []
+
         styles = current_app.config['FONTAWESOME_STYLES']
         if 'all' in styles:
-            urls.append(func('all', use_min))
+            html.append(func('all', use_min))
         else:
-            urls.append(func('fontawesome', use_min))
+            html.append(func('fontawesome', use_min))
             for style in styles:
-                urls.append(func(style, use_min))
+                html.append(func(style, use_min))
 
-        return Markup('\n'.join(urls))
+        if current_app.config['FONTAWESOME_INCLUDE_V4_SHIMS']:
+            html.append(func('v4-shims', use_min))
+
+        return Markup('\n'.join(html))
 
     def __url(self, resource: str) -> str:
         params = {'filename': resource}
@@ -60,6 +123,7 @@ class UseFontAwesomeComCdn(Cdn):
             'fontawesome': (
                 'sha384-1rquJLNOM3ijoueaaeS5m+McXPJCGdr5HcA03/VHXxcp2kX2sUrQDmFc3jR5i/C7'),
             'solid': 'sha384-VGP9aw4WtGH/uPAOseYxZ+Vz/vaTb1ehm1bwx92Fm8dTrE+3boLfF1SpAtB1z7HW',
+            'v4-shims': 'sha384-lmquXrF9qn7mMo6iRQ662vN44vTTVUBpcdtDFWPxD9uFPqC/aMn6pcQrTTupiv1A',
         },
         'svg/js': {
             'all': 'sha384-kW+oWsYx3YpxvjtZjFXqazFpA7UP/MbiY4jvs+RWZo2+N94PFZ36T6TFkc9O3qoB',
@@ -67,29 +131,45 @@ class UseFontAwesomeComCdn(Cdn):
             'fontawesome': (
                 'sha384-2OfHGv4zQZxcNK+oL8TR9pA+ADXtUODqGpIRy1zOgioC4X3+2vbOAp5Qv7uHM4Z8'),
             'solid': 'sha384-GJiigN/ef2B3HMj0haY+eMmG4EIIrhWgGJ2Rv0IaWnNdWdbWPr1sRLkGz7xfjOFw',
+            'v4-shims': 'sha384-DtdEw3/pBQuSag11V3is/UZMjGkGMLDRBgk1UVAOvH6cYoqKjBmCEhePm13skjRV',
         },
     }
 
-    def resources_html(self) -> Markup:
-        typ = current_app.config['FONTAWESOME_TYPE']
-        self._check_type(typ)
-        func = self.__css if typ == 'webfont/css' else self.__js
-        typ = self.__INTEGRITY_MAP[typ]
+    def css_html(self) -> Markup:
+        self._check_type()
+        if current_app.config['FONTAWESOME_TYPE'] == 'webfont/css':
+            return self.__gen_html(self.__css, 'webfont/css')
+        else:
+            return Markup()
 
-        urls = []
+    def js_html(self) -> Markup:
+        self._check_type()
+        if current_app.config['FONTAWESOME_TYPE'] == 'svg/js':
+            return self.__gen_html(self.__js, 'svg/js')
+        else:
+            return Markup()
+
+    def __gen_html(self, func, typ) -> Markup:
+        typ = self.__INTEGRITY_MAP[typ]
+        html = []
+
         styles = current_app.config['FONTAWESOME_STYLES']
         if 'all' in styles:
             integrity = typ['all']
-            urls.append(func('all', integrity))
+            html.append(func('all', integrity))
         else:
-            urls.append(func('fontawesome', typ['fontawesome']))
+            html.append(func('fontawesome', typ['fontawesome']))
             for style in styles:
                 integrity = typ.get(style, None)
                 if integrity is None:
                     raise ValueError('Unknown style: {}'.format(style))
-                urls.append(func(style, integrity))
+                html.append(func(style, integrity))
 
-        return Markup('\n'.join(urls))
+        if current_app.config['FONTAWESOME_INCLUDE_V4_SHIMS']:
+            integrity = typ['v4-shims']
+            html.append(func('v4-shims', integrity))
+
+        return Markup('\n'.join(html))
 
     def __css(self, style: str, integrity: str) -> str:
         url = '{}/css/{}.css'.format(self.__URL_BASE, style)
@@ -108,12 +188,20 @@ class FontAwesome(object):
         if app is not None:
             self.init_app(app)
 
+        if not hasattr(app, 'extensions'):
+            app.extensions = {}
+        app.extensions['fontawesome'] = self
+
+        self._static = StaticCdn()
+        self._use_fa = UseFontAwesomeComCdn()
+
     def init_app(self, app: Flask) -> None:
-        app.config.setdefault('FONTAWESOME_USE_MINIFIED', True)
+        app.config.setdefault('FONTAWESOME_INCLUDE_V4_SHIMS', False)
         app.config.setdefault('FONTAWESOME_QUERYSTRING_REVVING', True)
-        app.config.setdefault('FONTAWESOME_STYLES', ['solid'])
         app.config.setdefault('FONTAWESOME_SERVE_LOCAL', True)
+        app.config.setdefault('FONTAWESOME_STYLES', ['solid'])
         app.config.setdefault('FONTAWESOME_TYPE', 'webfont/css')
+        app.config.setdefault('FONTAWESOME_USE_MINIFIED', True)
 
         blueprint = Blueprint(
             'fontawesome',
@@ -121,14 +209,7 @@ class FontAwesome(object):
             static_folder='static',
             static_url_path=app.static_url_path + '/fontawesome')
 
-        static = StaticCdn()
-        use_fa = UseFontAwesomeComCdn()
-
-        def fontawesome_html() -> Markup:
-            if app.config['FONTAWESOME_SERVE_LOCAL']:
-                return static.resources_html()
-            else:
-                return use_fa.resources_html()
-
         app.jinja_env.globals['fontawesome_html'] = fontawesome_html
+        app.jinja_env.globals['fontawesome_css'] = fontawesome_css
+        app.jinja_env.globals['fontawesome_js'] = fontawesome_js
         app.register_blueprint(blueprint)

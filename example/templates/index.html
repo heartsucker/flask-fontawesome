@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    {{ fontawesome_html() }}
+    {{ fontawesome_css() }}
     <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
     <title>FontAwesome Example</title>
   </head>
@@ -15,5 +15,6 @@
       <span class="fas fa-wifi"></span>
       <span class="fas fa-bug"></span>
     </p>
+    {{ fontawesome_js() }}
   </body>
 </html>

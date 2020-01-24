@@ -21,7 +21,7 @@ html: init ## Render the docs to HTML
 
 .PHONY: serve
 serve: init ## Run a server and serve the documentation
-	@sphinx-autobuild -H 127.0.0.1 -p 8000 . $(BUILD_DIR)
+	@sphinx-autobuild -i '*~' -i '*.swp' -H 127.0.0.1 -p 8000 . $(BUILD_DIR)
 
 .PHONY: open
 open: ## Open the generated docs in your browser

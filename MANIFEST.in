@@ -2,3 +2,4 @@ include README.md
 include LICENSE-APACHE
 include LICENSE-MIT
 recursive-include flask_fontawesome/static *
+graft docs

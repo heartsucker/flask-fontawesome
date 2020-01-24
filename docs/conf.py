@@ -16,8 +16,7 @@ release = version
 
 extensions = [
     'sphinx.ext.autodoc',
-    'sphinx.ext.todo',
-    'sphinx.ext.doctest',
+    'sphinx.ext.intersphinx',
     'sphinx.ext.viewcode',
 ]
 
@@ -27,9 +26,11 @@ if not on_rtd:
 source_suffix = '.rst'
 master_doc = 'index'
 language = None
-todo_include_todos = True
 exclude_patterns = [u'_build', 'Thumbs.db', '.DS_Store']
 pygments_style = 'sphinx'
+
+module_path = os.path.join(os.path.dirname(__file__), '..', 'flask_fontawesome')
+module_path = os.path.abspath(module_path)
 
 if on_rtd:
     html_theme = 'default'
@@ -38,8 +39,7 @@ else:
 
 htmlhelp_basename = 'flask-fontawesomedoc'
 
-epub_title = project
-epub_author = author
-epub_publisher = author
-epub_copyright = copyright
-epub_exclude_files = ['search.html']
+intersphinx_mapping = {
+    "python": ("https://docs.python.org/3", None),
+    "flask": ("http://flask.pocoo.org/docs/", None),
+}
