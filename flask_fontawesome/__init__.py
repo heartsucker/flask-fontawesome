@@ -188,9 +188,9 @@ class FontAwesome(object):
         if app is not None:
             self.init_app(app)
 
-        if not hasattr(app, 'extensions'):
-            app.extensions = {}
-        app.extensions['fontawesome'] = self
+            if not hasattr(app, 'extensions'):
+                app.extensions = {}
+            app.extensions['fontawesome'] = self
 
         self._static = StaticCdn()
         self._use_fa = UseFontAwesomeComCdn()
