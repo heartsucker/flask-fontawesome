@@ -188,14 +188,15 @@ class FontAwesome(object):
         if app is not None:
             self.init_app(app)
 
-        if not hasattr(app, 'extensions'):
-            app.extensions = {}
-        app.extensions['fontawesome'] = self
-
         self._static = StaticCdn()
         self._use_fa = UseFontAwesomeComCdn()
 
     def init_app(self, app: Flask) -> None:
+        if not hasattr(app, 'extensions'):
+            app.extensions = {}
+
+        app.extensions['fontawesome'] = self
+
         app.config.setdefault('FONTAWESOME_INCLUDE_V4_SHIMS', False)
         app.config.setdefault('FONTAWESOME_QUERYSTRING_REVVING', True)
         app.config.setdefault('FONTAWESOME_SERVE_LOCAL', True)
