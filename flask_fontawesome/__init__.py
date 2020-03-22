@@ -11,7 +11,7 @@ This moudle provides helpers to quickly add FontAwesome resources to your Flask 
 from flask import Flask, Blueprint, url_for, Markup, current_app
 
 FONTAWESOME_VERSION = '5.3.1'
-__version__ = '0.1.3'
+__version__ = '0.1.4'
 
 
 def fontawesome_html() -> Markup:
