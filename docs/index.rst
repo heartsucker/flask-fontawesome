@@ -75,7 +75,7 @@ Option                              Default
 ``FONTAWESOME_INCLUDE_V4_SHIMS``    ``False``       Whether or not to include the v4 shims.
 ``FONTAWESOME_QUERYSTRING_REVVING`` ``True``        If ``True``, serve FontAwesome resources with an appended query string to ensure cache busting on upgrade.
 ``FONTAWESOME_SERVE_LOCAL``         ``True``        If ``True``, serve from ``/static``, else ``https://use.fontawesome.com``.
-``FONTAWESOME_STYLES``              ``solid``       Type: ``list``, options: ``all`` , ``solid``, ``brand``, . Which FontAwesome resources to load.
+``FONTAWESOME_STYLES``              ``solid``       Type: ``list``, options: ``all`` , ``regular``, ``solid``, ``brands``. Which FontAwesome resources to load.
 ``FONTAWESOME_TYPE``                ``webfont/css`` Options: ``webfont/css`` or ``svg/js``.
 ``FONTAWESOME_USE_MINIFIED``        ``True``        Whether or not to use the minified versions of the resources.
 =================================== =============== ===

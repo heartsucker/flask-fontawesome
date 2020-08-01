@@ -10,8 +10,8 @@ This moudle provides helpers to quickly add FontAwesome resources to your Flask 
 
 from flask import Flask, Blueprint, url_for, Markup, current_app
 
-FONTAWESOME_VERSION = '5.3.1'
-__version__ = '0.1.4'
+FONTAWESOME_VERSION = '5.14.0'
+__version__ = '0.1.5'
 
 
 def fontawesome_html() -> Markup:
@@ -118,20 +118,22 @@ class UseFontAwesomeComCdn(Cdn):
 
     __INTEGRITY_MAP = {
         'webfont/css': {
-            'all': 'sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU',
-            'brands': 'sha384-rf1bqOAj3+pw6NqYrtaE1/4Se2NBwkIfeYbsFdtiR6TQz0acWiwJbv1IM/Nt/ite',
+            'all': 'sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc',
+            'brands': 'sha384-MiOGyNsVTeSVUjE9q/52dpdZjrr7yQAjVRUs23Bir5NhrTq0YA0rny4u/qe4dxNj',
             'fontawesome': (
-                'sha384-1rquJLNOM3ijoueaaeS5m+McXPJCGdr5HcA03/VHXxcp2kX2sUrQDmFc3jR5i/C7'),
-            'solid': 'sha384-VGP9aw4WtGH/uPAOseYxZ+Vz/vaTb1ehm1bwx92Fm8dTrE+3boLfF1SpAtB1z7HW',
-            'v4-shims': 'sha384-lmquXrF9qn7mMo6iRQ662vN44vTTVUBpcdtDFWPxD9uFPqC/aMn6pcQrTTupiv1A',
+                'sha384-PRy/NDAXVTUcXlWA3voA+JO/UMtzWgsYuwMxjuu6DfFPgzJpciUiPwgsvp48fl3p'),
+            'regular': 'sha384-e46AbGhCSICtPh8xpc35ZioOrHg2PGsH1Bpy/vyr9AhEMVhttzxc+2GSMSP+Y60P',
+            'solid': 'sha384-TN9eFVoW87zV3Q7PfVXNZFuCwsmMwkuOTOUsyESfMS9uwDTf7yrxXH78rsXT3xf0',
+            'v4-shims': 'sha384-9aKO2QU3KETrRCCXFbhLK16iRd15nC+OYEmpVb54jY8/CEXz/GVRsnM73wcbYw+m',
         },
         'svg/js': {
-            'all': 'sha384-kW+oWsYx3YpxvjtZjFXqazFpA7UP/MbiY4jvs+RWZo2+N94PFZ36T6TFkc9O3qoB',
-            'brands': 'sha384-2vdvXGQdnt+ze3ylY5ESeZ9TOxwxlOsldUzQBwtjvRpen1FwDT767SqyVbYrltjb',
+            'all': 'sha384-3Nqiqht3ZZEO8FKj7GR1upiI385J92VwWNLj+FqHxtLYxd9l+WYpeqSOrLh0T12c',
+            'brands': 'sha384-V7gsTxvUZaeC6NAsCa24o3WvPOXwSsUM8/SBgy+fxlzWL3xEGXHsAv2E3UO5zKcZ',
             'fontawesome': (
-                'sha384-2OfHGv4zQZxcNK+oL8TR9pA+ADXtUODqGpIRy1zOgioC4X3+2vbOAp5Qv7uHM4Z8'),
-            'solid': 'sha384-GJiigN/ef2B3HMj0haY+eMmG4EIIrhWgGJ2Rv0IaWnNdWdbWPr1sRLkGz7xfjOFw',
-            'v4-shims': 'sha384-DtdEw3/pBQuSag11V3is/UZMjGkGMLDRBgk1UVAOvH6cYoqKjBmCEhePm13skjRV',
+                'sha384-DNo9bmYZCHLtp0n0l0XA2UsoRHX1nx38aRP+p9yoP5A8kVTfeWG3aySMOq5FD/v3'),
+            'regular': 'sha384-zHXcIX0meH+eFgqCa9QdLtYfc+0p7KcF4fVB+gMVFjV6rzYv+LxSIuF5i2eGVDlt',
+            'solid': 'sha384-4RG3cEPIlCBy6VNzxM9ZoEwZW+65ed5JDOfaJAnQqwV6ha/jZDJTXjFmvjFM4bk4',
+            'v4-shims': 'sha384-g+ezV6Pq6549QkJkkz2wmW/wpazNaliTdSg/HX4bKsQ7S8cfyMOiyAfzfWPtlVR9',
         },
     }
 
