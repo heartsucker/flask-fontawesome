@@ -1,12 +1,11 @@
 __pycache__/
 *.py[cod]
-
 *.egg-info/
 build/
 dist/
-
 .tox/
 .pytest_cache/
 .cache/
 .coverage
 htmlcov/
+poetry.lock

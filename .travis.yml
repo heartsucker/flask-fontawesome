@@ -3,18 +3,18 @@ sudo: false
 cache: pip
 matrix:
   include:
-    - python: '3.5'
+    - python: '3.9'
       env:
-        - TOXENV=py35
-    - python: '3.6'
+        - TOXENV=py39
+    - python: '3.10'
       env:
-        - TOXENV=py36
-    - python: '3.7'
+        - TOXENV=py310
+    - python: '3.11'
       env:
-        - TOXENV=py37
-    - python: '3.8'
+        - TOXENV=py311
+    - python: '3.12'
       env:
-        - TOXENV=py38
+        - TOXENV=py312
 before_install:
   - python --version
   - uname -a
