@@ -8,7 +8,8 @@ This moudle provides helpers to quickly add FontAwesome resources to your Flask 
 :license: MIT / Apache 2.0 (seen LICENSE-MIT and LICENSE-APACHE for details)
 '''
 
-from flask import Flask, Blueprint, url_for, Markup, current_app
+from flask import Flask, Blueprint, url_for, current_app
+from markupsafe import Markup
 
 FONTAWESOME_VERSION = '5.14.0'
 __version__ = '0.1.5'
