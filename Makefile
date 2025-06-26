@@ -32,7 +32,7 @@ all: lint bandit docs test ## Run all lints and tests
 
 .PHONY: publish
 publish: clean all ## Upload the package to PyPI
-	@python3 setup.py sdist bdist_wheel && \
+	@python -m build && \
 		twine upload dist/*
 
 .PHONY: open-coverage-report
